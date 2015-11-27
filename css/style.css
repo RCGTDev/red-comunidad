@@ -1,0 +1,33 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+
+#container {
+  margin-top: 100px;
+}
+
+path.depth1 {
+    fill: rgb(60, 95, 164);
+}
+
+path.depth2.p { fill: #0de3af; }
+path.depth2.ic { fill: #64daf5; }
+path.depth2.adp { fill: #fce367; }
+path.depth2.ip { fill: #2a6c91; }
+path.depth2.ayc { fill: #7c47b5; }
+path.depth2.c { fill: #7669f5; }
+
+#tooltip {
+  color: #222;
+  background: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.9;
+  position: absolute;
+  z-index: 999; 
+}

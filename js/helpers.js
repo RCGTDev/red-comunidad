@@ -3,9 +3,9 @@ function generarInitials(palabras) {
     var initials = "";
     var words = palabras.split(" ");
     for (var i=0; i < words.length; i++) {
-        var initial = words[i].split("")[0];
-        if (initial) { initial = initial.toLowerCase(); }
-        initialsArray.push(initial);
+        var twoInitial = words[i].split("").splice(0,2);
+        if (twoInitial) { twoInitial = twoInitial.join("").toLowerCase(); }
+        initialsArray.push(twoInitial);
     }
     initials = initialsArray.join("");
     return initials;

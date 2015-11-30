@@ -43,40 +43,51 @@ d3.json("data/red-comunidad.json", function(error, root) {
       .style("stroke", "#fff")
       .style("fill-rule", "evenodd")
       .on("mouseover", function(d) {
-        // Highlightear path que se este haciendo hover
-        d3.selectAll("path").style("opacity", 0.2)
-        d3.select(this).style("opacity", 1);
-        
-        // Mostrar tooltip con info correspondiente
-        $("#tooltip").show();
-        var htmlStr = "";
-        if ("tipo_ayuda" in d) {
-          htmlStr = "<div class='tooltip-content'>" + 
-                    "<span class='tooltip-titulo'>Título</span>" +
-                    "<span class='tooltip-value'>" + 
-                    "<a href='" + d.link + 
-                    "'>" + d.name + "</a></span>" +
-                    "<span class='tooltip-titulo'>Descripción</span>" +
-                    "<span class='tooltip-value'>" + d.bajada + "</span>";
+        if ($("#tooltip").prop("style").display == "none") {
+          // Highlightear path que se este haciendo hover
+          d3.selectAll("path").style("opacity", 0.2)
+          d3.select(this).style("opacity", 1);
 
-          var ministerios = getMinisterios(this);
-          d3.selectAll(ministerios).style("opacity", 1);
-        } else {
-          // El hover es sobre un Ministerio
-          htmlStr = "<div class='tooltip-content'>" + 
-                    "<span class='tooltip-titulo'>Ministerio</span>" +
-                    "<span class='tooltip-value'>" + d.name + "</span>" +
-                    "<span class='tooltip-titulo'>Cantidad de proyectos</span>" +
-                    "<span class='tooltip-value'>" + d.children.length + "</span></div>";
-
-          var productos = getProductos(this);
-          d3.selectAll(productos).style("opacity", 1);
+          if ("tipo_ayuda" in d) {
+            var ministerios = getMinisterios(this);
+            d3.selectAll(ministerios).style("opacity", 1);
+          } else {
+            var productos = getProductos(this);
+            d3.selectAll(productos).style("opacity", 1);
+          }  
         }
-        console.log(d);
-        $("#tooltip").html(htmlStr);
+      })
+      .on("click", function(d) {
+        if ($("#tooltip").prop("style").display == "none") {
+          // Mostrar tooltip con info correspondiente
+          $("#tooltip").show();
+          var htmlStr = "";
+          if ("tipo_ayuda" in d) {
+            htmlStr = "<div class='tooltip-content'>" + 
+                      "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
+                      "<span class='tooltip-titulo'>Título</span>" +
+                      "<span class='tooltip-value'>" + 
+                      "<a href='" + d.link + 
+                      "'>" + d.name + "</a></span>" +
+                      "<span class='tooltip-titulo'>Descripción</span>" +
+                      "<span class='tooltip-value'>" + d.bajada + "</span>";
+          } else {
+            // El hover es sobre un Ministerio
+            htmlStr = "<div class='tooltip-content'>" + 
+                      "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
+                      "<span class='tooltip-titulo'>Ministerio</span>" +
+                      "<span class='tooltip-value'>" + d.name + "</span>" +
+                      "<span class='tooltip-titulo'>Cantidad de proyectos</span>" +
+                      "<span class='tooltip-value'>" + d.children.length + "</span></div>";
+          }
+          console.log(d);
+          $("#tooltip").html(htmlStr);  
+        }
       })
       .on("mouseout", function(d) {
-        d3.selectAll($("path")).style("opacity", 1);
+        if ($("#tooltip").prop("style").display == "none") { 
+          d3.selectAll("path.depth1, path.depth2").style("opacity", 1); 
+        } 
       });
 
   generarFiltros();
@@ -98,3 +109,8 @@ function arcTween(a) {
 }
 
 d3.select(self.frameElement).style("height", height + "px");
+
+function cerrarTooltip() {
+  $("#tooltip").hide();
+  d3.selectAll("path.depth1, path.depth2").style("opacity", 1);
+}

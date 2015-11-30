@@ -11,11 +11,11 @@ path.depth1 {
     fill: rgb(60, 95, 164);
 }
 
-path.depth2.p { fill: #0de3af; }
-path.depth2.ic { fill: #64daf5; }
-path.depth2.adp { fill: #fce367; }
-path.depth2.ip { fill: #2a6c91; }
-path.depth2.ayc { fill: #7c47b5; }
+path.depth2.pr { fill: #0de3af; }
+path.depth2.incí { fill: #64daf5; }
+path.depth2.acdepr { fill: #fce367; }
+path.depth2.inpú { fill: #2a6c91; }
+path.depth2.asyco { fill: #7c47b5; }
 path.depth2.c { fill: #7669f5; }
 
 #tooltip {
@@ -36,6 +36,11 @@ path.depth2.c { fill: #7669f5; }
     color: #333333;
     display: block;
     margin-bottom: 10px;
+}
+
+.tooltip-esc {
+  text-align: right;
+  cursor: pointer;
 }
 
 .checkbox label {

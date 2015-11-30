@@ -4,7 +4,7 @@ var width = 600,
     height = 500,
     radius = Math.min(width, height) / 2;
 
-var svg = d3.select("#container").append("svg")
+var svg = d3.select("#viz").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
@@ -24,13 +24,6 @@ var arc = d3.svg.arc()
 d3.json("data/red-comunidad.json", function(error, root) {
   if (error) throw error;
 
-  var mousePos = [];
-
-  $(document).mousemove(function(event) {
-      mousePos[0] = event.clientX;
-      mousePos[1] = event.clientY;
-  });
-
   var path = svg.datum(root).selectAll("path")
       .data(partition.nodes)
     .enter().append("path")
@@ -39,14 +32,11 @@ d3.json("data/red-comunidad.json", function(error, root) {
       .attr("class", function(d) { 
         var clase = "depth" + d.depth;
         if ("tipo_ayuda" in d) {
-          var initials = [];
-          var words = d.tipo_ayuda.split(" ");
-          for (var i=0; i < words.length; i++) {
-            var initial = words[i].split("")[0].toLowerCase();
-            initials.push(initial);
-          }
-          ayuda = initials.join("");
+          var ayuda = generarInitials(d.tipo_ayuda);
           clase += " " + ayuda;
+        } else {
+          var ministerio = generarInitials(d.name);
+          clase += " " + ministerio;
         }
         return clase; 
       })
@@ -59,41 +49,29 @@ d3.json("data/red-comunidad.json", function(error, root) {
         
         // Mostrar tooltip con info correspondiente
         $("#tooltip").show();
-        d3.select("#tooltip")
-          .attr("style", function() {
-            return "left:" + (mousePos[0] - 150) + "px; top:" + (mousePos[1] - 210) + "px";
-          }
-        );
         var htmlStr = "";
         if ("tipo_ayuda" in d) {
           htmlStr = "<div class='tooltip-content'>" + 
-                    "<span class='tooltip-esc'>X</span>" + 
-                    "<span class='tooltip-titulo'>Proyecto</span>" +
-                    "<span class='tooltip-value'>" + d.name + "</span>" +
-                    "<span class='tooltip-titulo'>Tipo de colaboración</span>" +
-                    "<span class='tooltip-value'>" + d.tipo_ayuda + "</span></div>";
+                    "<span class='tooltip-titulo'>Título</span>" +
+                    "<span class='tooltip-value'>" + 
+                    "<a href='" + d.link + 
+                    "'>" + d.name + "</a></span>" +
+                    "<span class='tooltip-titulo'>Descripción</span>" +
+                    "<span class='tooltip-value'>" + d.bajada + "</span>";
+
+          var ministerios = getMinisterios(this);
+          d3.selectAll(ministerios).style("opacity", 1);
         } else {
           // El hover es sobre un Ministerio
           htmlStr = "<div class='tooltip-content'>" + 
-                    "<span class='tooltip-esc'>X</span>" +
                     "<span class='tooltip-titulo'>Ministerio</span>" +
                     "<span class='tooltip-value'>" + d.name + "</span>" +
                     "<span class='tooltip-titulo'>Cantidad de proyectos</span>" +
                     "<span class='tooltip-value'>" + d.children.length + "</span></div>";
 
-          var paths = $("path");
-          for (var i=0; i<paths.length; i++) {
-            var currentPath = paths[i];
-            var productParent = d3.select(currentPath)[0][0].__data__.parent;
-            var ministerioName = d3.select(this)[0][0].__data__.name;
-            if (productParent) {
-              if (productParent.name == ministerioName) {
-                d3.select(paths[i]).style("opacity", 1);  
-              }  
-            }
-          }
+          var productos = getProductos(this);
+          d3.selectAll(productos).style("opacity", 1);
         }
-        
         console.log(d);
         $("#tooltip").html(htmlStr);
       })
@@ -101,6 +79,11 @@ d3.json("data/red-comunidad.json", function(error, root) {
         d3.selectAll($("path")).style("opacity", 1);
       });
 
+  generarFiltros();
+
+  $("input[name=ministerios], input[name=tipo_ayuda]").change(function() {
+      filtrarProductos();
+  });
 });
 
 // Interpolate the arcs in data space.
@@ -115,7 +98,3 @@ function arcTween(a) {
 }
 
 d3.select(self.frameElement).style("height", height + "px");
-
-$(".tooltip-esc").click(function() {
-  $("#tooltip").hide();
-});

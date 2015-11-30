@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/d3.v3.min.js"></script>
 </head>  
 <body>
   <div id="container">
-    <div id="tooltip"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="filtro-minis">
+      <div id="filtro-ministerio">
+        <h4>Filtrar por ministerio</h4>
+        <div class="form-group">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="filtro-ayuda">
+      <div id="filtro-tipo-ayuda">
+        <h4>Filtrar por tipo de colaboración</h4>
+        <div class="form-group">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="viz"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
+    <div class="clear"></div>
   </div>
 </body>
+<script type="text/javascript" src="js/helpers.js"></script>
+<script type="text/javascript" src="js/filtros.js"></script>
 <script type="text/javascript" src="js/sunburst.js"></script>

@@ -3,6 +3,7 @@ body {
   margin: auto;
   position: relative;
   width: 960px;
+  font-size: 12px;
 }
 
 #container {
@@ -29,5 +30,27 @@ path.depth2.c { fill: #7669f5; }
   box-shadow: 0px 0px 2px 0px #a6a6a6;
   opacity: 0.9;
   position: absolute;
-  z-index: 999; 
+  z-index: 998; 
+}
+
+.tooltip-titulo {
+    text-transform: uppercase; 
+    color: #666666;
+    font-weight: bold;
+    display: block;
+    clear: right;
+}
+
+.tooltip-value {
+    color: #333333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tooltip-esc {
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+    margin-bottom: -5px;
+    display: block;
 }

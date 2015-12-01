@@ -24,7 +24,7 @@
   <!-- START Templates tooltips -->
   <script id="tooltip-producto" type="text/x-handlebars-template">
     <div class='tooltip-content'>
-      <div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>
+      <div class='tooltip-esc' onclick='cerrarTooltip(); enableFiltros();'>x</div>
       <span class='tooltip-titulo'>Áreas involucradas</span>
       <span class='tooltip-value'>
         {{#each areas}}

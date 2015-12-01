@@ -5,20 +5,76 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/d3.v3.min.js"></script>
+  <script type="text/javascript" src="js/handlebars.js"></script>
 </head>  
 <body>
-  <div id="container">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="filtro-minis">
-      <div id="filtro-ministerio">
-        <h4>Filtrar por ministerio</h4>
-        <div class="form-group">
+  <header>
+    <div class="header-gcba navbar navbar-default navbar-static-top" id="top" role="navigation">
+      <div class="header-inner">
+        <div class="container">
+          <a href="http://buenosaires.gob.ar" target="_blank">
+              <div class="logo"></div>
+          </a>
+          <h2 class="slogan">En todo estás vos</h2>
         </div>
       </div>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="filtro-ayuda">
-      <div id="filtro-tipo-ayuda">
+  </header>
+
+  <!-- START Templates tooltips -->
+  <script id="tooltip-producto" type="text/x-handlebars-template">
+    <div class='tooltip-content'>
+      <div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>
+      <span class='tooltip-titulo'>Áreas involucradas</span>
+      <span class='tooltip-value'>
+        {{#each areas}}
+          {{this}}</br>
+        {{/each}}
+      </span>
+      <span class='tooltip-titulo'>Equipos involucrados</span>
+      <span class='tooltip-value'>
+        {{#each equipos}}
+          {{this}}</br>
+        {{/each}}
+      </span>
+      <span class='tooltip-titulo'>Proyecto</span>
+      <span class='tooltip-value' id='name'>
+        <a href='{{link}}'>{{name}}</a>
+      </span>
+      <span class='tooltip-titulo'>Descripción</span>
+      <span class='tooltip-value'>{{bajada}}</span>
+      {{#if evento}}
+      <span class='tooltip-titulo'>Evento</span>
+      <span class='tooltip-value'>{{evento}}</span>
+      {{/if}}
+  </script>
+
+  <script id="tooltip-ministerio" type="text/x-handlebars-template">
+    <div class='tooltip-content'>
+      <div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>
+      <span class='tooltip-titulo'>Área</span>
+      <span class='tooltip-value' id='name'>{{name}}</span>
+      <span class='tooltip-titulo'>Cantidad de Proyectos</span>
+      <span class='tooltip-value'>{{cant_proyectos}}</span>
+  </script>
+  <!-- END Templates tooltips -->
+
+  <div id="container">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <div class='filtros'>
+        <h4>Filtrar por ministerio</h4>
+        <div class="form-group" id="filtro-minis">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <div class='filtros'>
         <h4>Filtrar por tipo de colaboración</h4>
-        <div class="form-group">
+        <div class="form-group" id="filtro-ayuda">
+        </div>
+        <hr>
+        <h4>Filtrar por evento</h4>
+        <div class="form-group" id="filtro-evento">
         </div>
       </div>
     </div>
@@ -26,6 +82,17 @@
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
     <div class="clear"></div>
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        <div class="col-md-4 col-sm-4 col-xs-4 ministerio labgcba"></div>
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 <script type="text/javascript" src="js/helpers.js"></script>
 <script type="text/javascript" src="js/filtros.js"></script>

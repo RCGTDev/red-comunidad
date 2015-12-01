@@ -54,32 +54,36 @@ d3.json("data/red-comunidad.json", function(error, root) {
 
           // Mostrar tooltip con info correspondiente
           $("#tooltip").show();
-          var htmlStr = "";
-
+          
+          var source = "";
+          var dataTemplate = {};
           if ("tipo_ayuda" in d) {
             var ministerios = getMinisterios(this);
             d3.selectAll(ministerios).style("opacity", 1);
-
-            htmlStr = "<div class='tooltip-content'>" + 
-                      "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
-                      "<span class='tooltip-titulo'>Título</span>" +
-                      "<span class='tooltip-value' id='name'>" + 
-                      "<a href='" + d.link + 
-                      "'>" + d.name + "</a></span>" +
-                      "<span class='tooltip-titulo'>Descripción</span>" +
-                      "<span class='tooltip-value'>" + d.bajada + "</span>";
+            var areas = [];
+            for (var i=0; i<ministerios.length; i++) {
+              areas.push(ministerios[i].__data__.name);
+            }
+            var equipos = d.area.split(";");
+            dataTemplate = { "name": d.name, 
+                             "bajada": d.bajada,
+                             "areas": areas,
+                             "equipos": equipos,
+                             "evento": d.evento };
+            // Compile template de tooltip de producto
+            source = $("#tooltip-producto").html();
+            
           } else {
             var productos = getProductos(this);
             d3.selectAll(productos).style("opacity", 1);
 
-            // El hover es sobre un Ministerio
-            htmlStr = "<div class='tooltip-content'>" + 
-                      "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
-                      "<span class='tooltip-titulo'>Ministerio</span>" +
-                      "<span class='tooltip-value' id='name'>" + d.name + "</span>" +
-                      "<span class='tooltip-titulo'>Cantidad de proyectos</span>" +
-                      "<span class='tooltip-value'>" + d.children.length + "</span></div>";
+            // Compile template de tooltip de ministerio
+            source = $("#tooltip-ministerio").html();
+            dataTemplate = {"name": d.name, 
+                            "cant_proyectos": d.children.length}
           }
+          var template = Handlebars.compile(source);
+          var htmlStr = template(dataTemplate);
           $("#tooltip").html(htmlStr); 
         } else if ((lockTooltip && d.name != $(".tooltip-content #name").html()) &&
                    (lockTooltip && d.name != $(".tooltip-content #name a").html())){
@@ -92,11 +96,15 @@ d3.json("data/red-comunidad.json", function(error, root) {
       .on("click", function(d) {
         if (!lockTooltip) { 
           lockTooltip = true; 
+          // Disable filtros
+          disableFiltros();
         } else { 
           if (d.name == $(".tooltip-content #name a").html() || 
               d.name == $(".tooltip-content #name").html()) {
             lockTooltip = false; 
-            $("#tooltip").hide();  
+            d3.selectAll("path.depth1, path.depth2").style("opacity", 1); 
+            $("#tooltip").hide();
+            enableFiltros();
           }
         }
       })
@@ -105,6 +113,7 @@ d3.json("data/red-comunidad.json", function(error, root) {
         if (!lockTooltip) {
           d3.selectAll("path.depth1, path.depth2").style("opacity", 1);   
           $("#tooltip").hide();
+          enableFiltros();
         }
       });
 
@@ -113,6 +122,9 @@ d3.json("data/red-comunidad.json", function(error, root) {
   $("input[name=ministerios], input[name=tipo_ayuda]").change(function() {
       filtrarProductos();
   });
+
+  // Mostrar footer una vez que está todo cargado
+  $("footer").show();
 });
 
 // Interpolate the arcs in data space.
@@ -129,6 +141,19 @@ function arcTween(a) {
 d3.select(self.frameElement).style("height", height + "px");
 
 function cerrarTooltip() {
+  d3.selectAll("path.depth1, path.depth2").style("opacity", 1); 
   lockTooltip = false;
   $("#tooltip").hide();
+}
+
+function disableFiltros() {
+  $("input[type='checkbox']").attr("disabled", true);
+  $("input[type='checkbox']").parent().css("color", "#999999").css("cursor", "default");
+  $("div.filtros h4").css("color", "#999999").css("cursor", "default");
+}
+
+function enableFiltros() {
+  $("input[type='checkbox']").attr("disabled", false);
+  $("input[type='checkbox']").parent().css("color", "#333333").css("cursor", "pointer");
+  $("div.filtros h4").css("color", "#333333").css("cursor", "pointer"); 
 }

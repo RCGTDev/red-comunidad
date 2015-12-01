@@ -1,11 +1,14 @@
 function generarFiltros() {
-    var filtroMinis = $("#filtro-ministerio .form-group");
+    var filtroMinis = $("#filtro-minis");
     var filtroMinisHtml = filtroMinis.html();
     var ministerios = $("path.depth1");
     
-    var filtroAyuda = $("#filtro-ayuda .form-group");
+    var filtroAyuda = $("#filtro-ayuda");
     var filtroAyudaHtml = filtroAyuda.html();
     var productos = $("path.depth2");
+
+    var filtroEvento = $("#filtro-evento");
+    var filtroEventoHtml = filtroEvento.html();
 
     // Generar Filtros por Ministerio
     for (var i=0; i<ministerios.length; i++) {
@@ -21,6 +24,7 @@ function generarFiltros() {
 
     var tiposAyuda = {};
     // Generar Objeto con todos los tipos de ayuda
+    // TODO: más fácil hacer con array como hice con eventos!
     for (var i=0; i<productos.length; i++) {
         var ayudaClass = d3.select(productos[i]).attr("class").split(" ")[1];
         var ayudaName = d3.select(productos[i])[0][0].__data__.tipo_ayuda;
@@ -38,11 +42,30 @@ function generarFiltros() {
         }
     }
     filtroAyuda.html(filtroAyudaHtml);
+
+    var eventos = [];
+    // Generar array con todos los eventos
+    for (var i=0; i<productos.length; i++) {
+        var eventoName = d3.select(productos[i])[0][0].__data__.evento;
+        // If evento no está en array
+        if (eventoName != "") {
+            if (eventos.indexOf(eventoName) == -1) {
+                eventos.push(eventoName);
+                var checkbox = "<div class='checkbox'><label><input type='checkbox' value='" + 
+                               generarInitials(eventoName) + 
+                               "' name='evento'>" + 
+                               eventoName + "</label></div>";
+                filtroEventoHtml += checkbox;
+            }    
+        }
+    }
+    filtroEvento.html(filtroEventoHtml);
 }
 
 function filtrarProductos() {
     var ministeriosCh = $("input[name=ministerios]");
     var tiposAyudaCh = $("input[name=tipo_ayuda]");
+    var eventosCh = $("input[name=evento]");
     
     var mostrarTodosMinis = false, 
         mostrarTodosAyuda = false;
@@ -54,9 +77,15 @@ function filtrarProductos() {
     }
 
     var ayudaUnchecked = $("input[name=tipo_ayuda]:not(:checked)");
-    // Si estan todos destildados, mostrarTodos!
+    // Si estan todos destildados, no hay filtro
     if ( ayudaUnchecked.length == tiposAyudaCh.length ) {
         mostrarTodosAyuda = true;
+    }
+
+    var eventosUnchecked = $("input[name=evento]:not(:checked)");
+    // Si estan todos destildados, no hay filtro
+    if ( eventosUnchecked.length == eventosCh.length ) {
+        mostrarTodosEventos = true;
     }
 
     ministeriosCh.each(function() {
@@ -79,6 +108,7 @@ function filtrarProductos() {
             for (var i=0; i<productosMinis.length; i++) {
                 var currentProducto = productosMinis[i];
                 var productoClass = currentProducto.classList[1];
+                var productoEvento = currentProducto.__data__.evento;
                 if ((ayudaChecked && minisChecked && (ayudaClass == productoClass)) || 
                     (ayudaChecked && mostrarTodosMinis && (ayudaClass == productoClass)) ||
                     (mostrarTodosAyuda && minisChecked) ||

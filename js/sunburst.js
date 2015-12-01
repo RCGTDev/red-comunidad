@@ -1,3 +1,5 @@
+var lockTooltip = false;
+
 $("#tooltip").hide();
 
 var width = 600,
@@ -43,51 +45,67 @@ d3.json("data/red-comunidad.json", function(error, root) {
       .style("stroke", "#fff")
       .style("fill-rule", "evenodd")
       .on("mouseover", function(d) {
-        if ($("#tooltip").prop("style").display == "none") {
+        // Si no hay un path seleccionado, se puede seguir hovereando
+        if (!lockTooltip) { 
+          document.body.style.cursor = "pointer";
           // Highlightear path que se este haciendo hover
           d3.selectAll("path").style("opacity", 0.2)
           d3.select(this).style("opacity", 1);
 
-          if ("tipo_ayuda" in d) {
-            var ministerios = getMinisterios(this);
-            d3.selectAll(ministerios).style("opacity", 1);
-          } else {
-            var productos = getProductos(this);
-            d3.selectAll(productos).style("opacity", 1);
-          }  
-        }
-      })
-      .on("click", function(d) {
-        if ($("#tooltip").prop("style").display == "none") {
           // Mostrar tooltip con info correspondiente
           $("#tooltip").show();
           var htmlStr = "";
+
           if ("tipo_ayuda" in d) {
+            var ministerios = getMinisterios(this);
+            d3.selectAll(ministerios).style("opacity", 1);
+
             htmlStr = "<div class='tooltip-content'>" + 
                       "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
                       "<span class='tooltip-titulo'>Título</span>" +
-                      "<span class='tooltip-value'>" + 
+                      "<span class='tooltip-value' id='name'>" + 
                       "<a href='" + d.link + 
                       "'>" + d.name + "</a></span>" +
                       "<span class='tooltip-titulo'>Descripción</span>" +
                       "<span class='tooltip-value'>" + d.bajada + "</span>";
           } else {
+            var productos = getProductos(this);
+            d3.selectAll(productos).style("opacity", 1);
+
             // El hover es sobre un Ministerio
             htmlStr = "<div class='tooltip-content'>" + 
                       "<div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>" +
                       "<span class='tooltip-titulo'>Ministerio</span>" +
-                      "<span class='tooltip-value'>" + d.name + "</span>" +
+                      "<span class='tooltip-value' id='name'>" + d.name + "</span>" +
                       "<span class='tooltip-titulo'>Cantidad de proyectos</span>" +
                       "<span class='tooltip-value'>" + d.children.length + "</span></div>";
           }
-          console.log(d);
-          $("#tooltip").html(htmlStr);  
+          $("#tooltip").html(htmlStr); 
+        } else if ((lockTooltip && d.name != $(".tooltip-content #name").html()) &&
+                   (lockTooltip && d.name != $(".tooltip-content #name a").html())){
+          // Hay un path seleccionado
+          document.body.style.cursor = "default";
+        } else {
+          document.body.style.cursor = "pointer";
+        }
+      })
+      .on("click", function(d) {
+        if (!lockTooltip) { 
+          lockTooltip = true; 
+        } else { 
+          if (d.name == $(".tooltip-content #name a").html() || 
+              d.name == $(".tooltip-content #name").html()) {
+            lockTooltip = false; 
+            $("#tooltip").hide();  
+          }
         }
       })
       .on("mouseout", function(d) {
-        if ($("#tooltip").prop("style").display == "none") { 
-          d3.selectAll("path.depth1, path.depth2").style("opacity", 1); 
-        } 
+        document.body.style.cursor = "default";
+        if (!lockTooltip) {
+          d3.selectAll("path.depth1, path.depth2").style("opacity", 1);   
+          $("#tooltip").hide();
+        }
       });
 
   generarFiltros();
@@ -111,6 +129,6 @@ function arcTween(a) {
 d3.select(self.frameElement).style("height", height + "px");
 
 function cerrarTooltip() {
+  lockTooltip = false;
   $("#tooltip").hide();
-  d3.selectAll("path.depth1, path.depth2").style("opacity", 1);
 }

@@ -59,42 +59,40 @@ function filtrarProductos() {
         mostrarTodosAyuda = true;
     }
 
-    // Loopeamos por todos y nos vamos fijando si mostramos o escondemos
     ministeriosCh.each(function() {
         var minisChecked = $(this).prop("checked");
         var minisClass = $(this).val();
 
-        if (mostrarTodosMinis) {
-            $("path.depth1, path.depth2").show();
+        var minisPath = $("path.depth1." + minisClass);
+        if (mostrarTodosMinis || minisChecked) {
+            minisPath.show();       
         } else {
-            var minisPath = $("path.depth1." + minisClass);
-            if (minisChecked) {
-                minisPath.show();
-                $(getProductos(minisPath[0])).show();
-            } else {
-                minisPath.hide();
-                $(getProductos(minisPath[0])).hide();
-            }
-        }        
-    });
-
-    tiposAyudaCh.each(function() {
-        var ayudaChecked = $(this).prop("checked");
-        var ayudaVal = $(this).val();
-
-        var ayudaClass = $(this).val();
-        
-        if (mostrarTodosAyuda) {
-            $("path.depth1, path.depth2").show();
-        } else {
-            var ayudaPath = $("path.depth2." + ayudaClass);
-            if (ayudaChecked) {
-                ayudaPath.show();
-                $(getMinisterios(ayudaPath[0])).show();
-            } else {
-                ayudaPath.hide();
-                $(getMinisterios(ayudaPath[0])).hide();
-            }
+            minisPath.hide();
+            $(getProductos(minisPath[0])).hide();
         }
+        
+        tiposAyudaCh.each(function() {
+            var ayudaChecked = $(this).prop("checked");
+            var ayudaClass = $(this).val();
+    
+            var productosMinis = getProductos(minisPath[0]);
+            for (var i=0; i<productosMinis.length; i++) {
+                var currentProducto = productosMinis[i];
+                var productoClass = currentProducto.classList[1];
+                if ((ayudaChecked && minisChecked && (ayudaClass == productoClass)) || 
+                    (ayudaChecked && mostrarTodosMinis && (ayudaClass == productoClass)) ||
+                    (mostrarTodosAyuda && minisChecked) ||
+                    (mostrarTodosAyuda && mostrarTodosMinis)) 
+                {
+                    $(currentProducto).show();
+                } 
+                if ((!ayudaChecked && !mostrarTodosAyuda && (ayudaClass == productoClass)) || 
+                    (!minisChecked && !mostrarTodosMinis && (ayudaClass == productoClass))) 
+                { 
+                    $(currentProducto).hide();
+                }
+            }
+        });
     });
+
 }

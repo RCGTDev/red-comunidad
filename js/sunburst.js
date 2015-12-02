@@ -119,7 +119,7 @@ d3.json("data/red-comunidad.json", function(error, root) {
 
   generarFiltros();
 
-  $("input[name=ministerios], input[name=tipo_ayuda]").change(function() {
+  $("input[name=ministerios], input[name=tipo_ayuda], input[name=evento]").change(function() {
       filtrarProductos();
   });
 

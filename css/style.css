@@ -17,6 +17,18 @@ body {
 
 #viz svg { margin-top: 20px; }
 
+#logo-lab {
+  background: url("img/logo-lab.svg");
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin-top: 200px;
+  margin-left: 240px;
+  position: absolute;
+  z-index: 999;
+}
+
 path.depth1 {
     fill: rgb(60, 95, 164);
 }

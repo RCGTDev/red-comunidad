@@ -68,7 +68,8 @@ function filtrarProductos() {
     var eventosCh = $("input[name=evento]");
     
     var mostrarTodosMinis = false, 
-        mostrarTodosAyuda = false;
+        mostrarTodosAyuda = false,
+        mostrarTodosEventos = false;
 
     // Si estan todos destilados, no hay filtro!
     var minisUnchecked = $("input[name=ministerios]:not(:checked)");
@@ -104,20 +105,36 @@ function filtrarProductos() {
             var ayudaChecked = $(this).prop("checked");
             var ayudaClass = $(this).val();
     
+            var mostrarEventos = false;
+            var eventosChecked = [];
+            eventosCh.each(function() {
+                var eventoChecked = $(this).prop("checked");
+                var eventoName = $(this).val();
+                if (eventoChecked) { eventosChecked.push(eventoName); }
+            });
+
             var productosMinis = getProductos(minisPath[0]);
             for (var i=0; i<productosMinis.length; i++) {
                 var currentProducto = productosMinis[i];
                 var productoClass = currentProducto.classList[1];
-                var productoEvento = currentProducto.__data__.evento;
-                if ((ayudaChecked && minisChecked && (ayudaClass == productoClass)) || 
-                    (ayudaChecked && mostrarTodosMinis && (ayudaClass == productoClass)) ||
-                    (mostrarTodosAyuda && minisChecked) ||
-                    (mostrarTodosAyuda && mostrarTodosMinis)) 
+                var productoEvento = generarInitials(currentProducto.__data__.evento);
+
+                if (mostrarTodosEventos || eventosChecked.indexOf(productoEvento) != -1) {
+                    mostrarEventos = true;
+                } else {
+                    mostrarEventos = false;
+                }
+
+                if ((ayudaChecked && minisChecked && (ayudaClass == productoClass) && mostrarEventos) || 
+                    (ayudaChecked && mostrarTodosMinis && (ayudaClass == productoClass) && mostrarEventos) ||
+                    (mostrarTodosAyuda && minisChecked && mostrarEventos) ||
+                    (mostrarTodosAyuda && mostrarTodosMinis && mostrarEventos)) 
                 {
                     $(currentProducto).show();
                 } 
                 if ((!ayudaChecked && !mostrarTodosAyuda && (ayudaClass == productoClass)) || 
-                    (!minisChecked && !mostrarTodosMinis && (ayudaClass == productoClass))) 
+                    (!minisChecked && !mostrarTodosMinis && (ayudaClass == productoClass)) ||
+                    (!mostrarEventos)) 
                 { 
                     $(currentProducto).hide();
                 }

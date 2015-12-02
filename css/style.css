@@ -40,10 +40,17 @@ path.depth2.inpú { fill: #2a6c91; }
 path.depth2.asyco { fill: #7c47b5; }
 path.depth2.c { fill: #7669f5; }
 
-#tooltip {
-  color: #222;
+#tooltip, #hover-tooltip {
+  color: #333;
   background: #fff;
   padding: 10px;
+}
+
+#hover-tooltip {
+  opacity: 0.9;
+  position: absolute;
+  z-index: 1020;
+  border-radius: 2px;
 }
 
 .tooltip-content {

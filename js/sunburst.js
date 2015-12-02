@@ -1,6 +1,7 @@
 var lockTooltip = false;
 
 $("#tooltip").hide();
+$("#hover-tooltip").hide();
 
 var width = 600,
     height = 500,
@@ -26,6 +27,12 @@ var arc = d3.svg.arc()
 d3.json("data/red-comunidad.json", function(error, root) {
   if (error) throw error;
 
+  var mousePos = [];
+  $(document).mousemove(function(event) {
+      mousePos[0] = event.clientX;
+      mousePos[1] = event.clientY;
+  });
+
   var path = svg.datum(root).selectAll("path")
       .data(partition.nodes)
     .enter().append("path")
@@ -48,6 +55,11 @@ d3.json("data/red-comunidad.json", function(error, root) {
         // Si no hay un path seleccionado, se puede seguir hovereando
         if (!lockTooltip) { 
           document.body.style.cursor = "pointer";
+          
+          $("#hover-tooltip").show();
+          var hoverHtml = "Hacé click para ver los detalles";
+          $("#hover-tooltip").html(hoverHtml);
+
           // Highlightear path que se este haciendo hover
           d3.selectAll("path").style("opacity", 0.2)
           d3.select(this).style("opacity", 1);
@@ -94,10 +106,12 @@ d3.json("data/red-comunidad.json", function(error, root) {
         }
       })
       .on("click", function(d) {
+        $("#hover-tooltip").hide();
         if (!lockTooltip) { 
           lockTooltip = true; 
           // Disable filtros
           disableFiltros();
+          $("#tooltip").show();
         } else { 
           if (d.name == $(".tooltip-content #name a").html() || 
               d.name == $(".tooltip-content #name").html()) {
@@ -109,11 +123,22 @@ d3.json("data/red-comunidad.json", function(error, root) {
         }
       })
       .on("mouseout", function(d) {
+        $("#hover-tooltip").hide();
         document.body.style.cursor = "default";
         if (!lockTooltip) {
           d3.selectAll("path.depth1, path.depth2").style("opacity", 1);   
           $("#tooltip").hide();
           enableFiltros();
+        }
+      })
+      .on("mousemove", function() {
+        if (!lockTooltip) {
+          d3.select("#hover-tooltip")
+              .attr("style",
+                  function() {
+                      return "left:" + (mousePos[0] - 60) + "px; top:" + (mousePos[1] - 55) + "px";
+                  }
+              );
         }
       });
 

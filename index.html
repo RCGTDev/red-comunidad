@@ -39,7 +39,13 @@
       </span>
       <span class='tooltip-titulo'>Proyecto</span>
       <span class='tooltip-value' id='name'>
-        <a href='{{link}}'>{{name}}</a>
+        {{#if link}}
+          <a href='{{link}}'>
+        {{/if}}
+        {{#if link}}
+          {{name}}
+        {{/if}}  
+        </a>
       </span>
       <span class='tooltip-titulo'>Descripción</span>
       <span class='tooltip-value'>{{bajada}}</span>

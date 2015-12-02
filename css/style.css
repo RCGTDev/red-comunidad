@@ -13,11 +13,35 @@ body {
 }
 .clear { clear: both; }
 
-#container { padding: 0px 30px; width: 100%; margin-top: 60px;}
+#contenido-posta { display: none; }
+#contenido-inicial, #container { padding: 0px 30px; width: 100%; margin-top: 60px; }
+
+#contenido-inicial h3, p { text-align: center; }
+#contenido-inicial h3 { padding-top: 30px; }
+#contenido-inicial p { width: 520px; margin: auto;}
+
+.boton-viz {
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 50px;
+  white-space: normal;
+}
+  @media (max-width: 768px) {
+    .boton-viz {
+      width: 60%;
+      margin-left: 20%;
+    }
+  }
+  @media (max-width: 512px) {
+    .boton-viz {
+      width: 80%;
+      margin-left: 10%;
+    }  
+  }
 
 #viz svg { margin-top: 20px; }
 
-#logo-lab {
+.logo-lab {
   background: url("img/logo-lab.svg");
   background-size: 120px 120px;
   width: 120px;

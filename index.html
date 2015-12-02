@@ -59,33 +59,44 @@
   </script>
   <!-- END Templates tooltips -->
 
-  <div id="container">
-    <div id="hover-tooltip"></div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <div class='filtros'>
-        <h4>Filtrar por ministerio</h4>
-        <div class="form-group" id="filtro-minis">
+  <div id='contenido-inicial'>
+    <h3>Mapa de relaciones del Laboratorio de Gobierno</h3>
+    <p>Durante todo este año continuamos realizando encuentros, asesoramientos, mentoreos, hackatones y capacitaciones con diferentes áreas tanto gubernamentales como de la sociedad civil. Mediante esta visualización quisimos reflejar todo lo trabajado con los diferentes equipos para seguir fomentando la apertura y colaboración en la Ciudad.</p>
+    <button type="button" class="btn btn-default boton-viz">
+      Hacé click y conocé las áreas con las que trabajamos durante el 2015
+    </button>
+  </div>
+
+  <div id='contenido-posta'>
+    <div id="container">
+      <div id="hover-tooltip"></div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <div class='filtros'>
+          <h4>Filtrar por ministerio</h4>
+          <div class="form-group" id="filtro-minis">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-      <div class='filtros'>
-        <h4>Filtrar por tipo de colaboración</h4>
-        <div class="form-group" id="filtro-ayuda">
-        </div>
-        <hr>
-        <h4>Filtrar por evento</h4>
-        <div class="form-group" id="filtro-evento">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <div class='filtros'>
+          <h4>Filtrar por tipo de colaboración</h4>
+          <div class="form-group" id="filtro-ayuda">
+          </div>
+          <hr>
+          <h4>Filtrar por evento</h4>
+          <div class="form-group" id="filtro-evento">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="viz">
-      <span id='logo-lab'></span>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
-    <div class="clear"></div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="viz">
+        <span class='logo-lab'></span>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
+      <div class="clear"></div>
+    </div>  
   </div>
 </body>
 <script type="text/javascript" src="js/helpers.js"></script>
 <script type="text/javascript" src="js/filtros.js"></script>
 <script type="text/javascript" src="js/sunburst.js"></script>
+<script type="text/javascript" src="js/general.js"></script>

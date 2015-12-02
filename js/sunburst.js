@@ -142,14 +142,11 @@ d3.json("data/red-comunidad.json", function(error, root) {
         }
       });
 
+  // Inicializar filtros
   generarFiltros();
-
   $("input[name=ministerios], input[name=tipo_ayuda], input[name=evento]").change(function() {
       filtrarProductos();
   });
-
-  // Mostrar footer una vez que está todo cargado
-  $("footer").show();
 });
 
 // Interpolate the arcs in data space.

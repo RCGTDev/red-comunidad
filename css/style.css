@@ -43,26 +43,25 @@ body {
 
 .logo-lab {
   background: url("img/logo-lab.svg");
-  background-size: 120px 120px;
-  width: 120px;
-  height: 120px;
+  background-size: 190px 190px;
+  width: 190px;
+  height: 190px;
   display: block;
-  margin-top: 200px;
-  margin-left: 240px;
+  margin-top: 172px;
+  margin-left: 206px;
   position: absolute;
   z-index: 999;
 }
 
 path.depth1 {
-    fill: rgb(60, 95, 164);
+    fill: #1f274e;
 }
 
-path.depth2.pr { fill: #0de3af; }
-path.depth2.incí { fill: #64daf5; }
-path.depth2.acdepr { fill: #fce367; }
-path.depth2.inpú { fill: #2a6c91; }
+path.depth2.pr { fill: #21d1e9; }
+path.depth2.incí { fill: #fecd07; }
+path.depth2.acdepr { fill: #42bc7f; }
+path.depth2.inpú { fill: #ee477f; }
 path.depth2.asyco { fill: #7c47b5; }
-path.depth2.c { fill: #7669f5; }
 
 #tooltip, #hover-tooltip {
   color: #333;

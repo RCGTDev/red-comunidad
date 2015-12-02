@@ -1,4 +1,5 @@
 var lockTooltip = false;
+var pathLocked = "";
 
 $("#tooltip").hide();
 $("#hover-tooltip").hide();
@@ -57,7 +58,12 @@ d3.json("data/red-comunidad.json", function(error, root) {
           document.body.style.cursor = "pointer";
           
           $("#hover-tooltip").show();
-          var hoverHtml = "Hacé click para ver los detalles";
+          var hoverHtml = "";
+          if ("tipo_ayuda" in d) {
+            hoverHtml = "Hacé click para ver los detalles";
+          } else {
+            hoverHtml = d.name;
+          }
           $("#hover-tooltip").html(hoverHtml);
 
           // Highlightear path que se este haciendo hover
@@ -81,7 +87,8 @@ d3.json("data/red-comunidad.json", function(error, root) {
                              "bajada": d.bajada,
                              "areas": areas,
                              "equipos": equipos,
-                             "evento": d.evento };
+                             "evento": d.evento,
+                             "link": d.link };
             // Compile template de tooltip de producto
             source = $("#tooltip-producto").html();
             
@@ -112,6 +119,7 @@ d3.json("data/red-comunidad.json", function(error, root) {
           // Disable filtros
           disableFiltros();
           $("#tooltip").show();
+          pathLocked = d.name;
         } else { 
           if (d.name == $(".tooltip-content #name a").html() || 
               d.name == $(".tooltip-content #name").html()) {
@@ -178,4 +186,25 @@ function enableFiltros() {
   $("input[type='checkbox']").attr("disabled", false);
   $("input[type='checkbox']").parent().css("color", "#333333").css("cursor", "pointer");
   $("div.filtros h4").css("color", "#333333").css("cursor", "pointer"); 
+}
+
+function isHoverClick(data, path) {
+  var isProducto = false,
+      isMinisterio = false,
+      isHovereable = false;
+  if ("tipo_ayuda" in data) { isProducto = true; } else { isMinisterio = true; }
+
+  if (lockTooltip) {
+    if (isProducto) {
+      var nombresMinis = [];
+      var ministerios = getMinisterios(path);
+      for (var i=0; i<ministerios.length; i++) {
+        nombresMinis.push(ministerios[i].__data__.name)
+      }
+      if (nombresMinis.indexOf(pathLocked) != -1) {
+        isHovereable = true;
+      }
+    } 
+  }
+  return isHovereable;
 }

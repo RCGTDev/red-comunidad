@@ -14,43 +14,31 @@ body {
 }
 .clear { clear: both; }
 
-#contenido-posta { display: none; }
-#contenido-inicial, #container { padding: 0px 30px; width: 100%; margin-top: 60px; }
+#fullpage { display: none; }
+#contenido-inicial {
+  margin-top: 60px;
+}
+
+.section #container {
+  padding: 30px 20px;
+}
 
 #contenido-inicial {
   background-image: url("img/back-viz-01");
+  background-position-y: -180px;
   color: white;
   height: 100%;
-  margin-top: 50px;
 }
 
-#contenido-inicial h3, p { text-align: center; }
-#contenido-inicial h3 { padding-top: 30px; }
-#contenido-inicial p { width: 520px; margin: auto;}
-
-.boton-viz {
-  width: 20%;
-  margin-left: 40%;
-  margin-top: 50px;
-  white-space: normal;
-}
-  @media (max-width: 768px) {
-    .boton-viz {
-      width: 60%;
-      margin-left: 20%;
-    }
-  }
-  @media (max-width: 512px) {
-    .boton-viz {
-      width: 80%;
-      margin-left: 10%;
-    }  
-  }
+#contenido-inicial h2, p { text-align: center; }
+#contenido-inicial h2 { padding-top: 100px; }
+#contenido-inicial p { width: 520px; margin: auto; margin-top: 20px; font-size: 14px;}
 
 #viz svg { margin-top: 20px; }
 
 .logo-lab {
-  background: url("img/logo-lab.svg");
+  background-image: url("img/logo-lab.png");
+  background-image: linear-gradient(transparent, transparent), url("img/logo-lab.svg");
   background-size: 190px 190px;
   width: 190px;
   height: 190px;
@@ -59,6 +47,36 @@ body {
   margin-left: 206px;
   position: absolute;
   z-index: 999;
+}
+
+.flecha-down {
+  background-image: url("img/flecha.png");
+  background-image: linear-gradient(transparent, transparent), url("img/arrow-down-blanco.svg");
+  background-size: 60px 60px;
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  display: block;
+}
+
+.flecha-down:hover {
+  cursor: pointer;
+}
+
+.center-bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 30px;
+}
+
+.logo-lab-white {
+  background: url("img/logolab-01.svg");
+  background-size: 200px 200px;
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: auto;
+  margin-top: 30px;
 }
 
 path.depth1 {
@@ -114,16 +132,14 @@ path.depth2.asyco { fill: #7c47b5; }
     min-height: 15px;
 }
 
-
 header {
-  pointer-events: none;
-  position: fixed;
-  top: 0px;
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  z-index: 999;
+  z-index: 1100;
   font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif; }
   header .header-gcba {
     height: 50px;

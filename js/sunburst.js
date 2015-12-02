@@ -11,6 +11,7 @@ var svg = d3.select("#viz").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
+    .attr("id", "group-viz")
     .attr("transform", "translate(" + width / 2 + "," + height * .5 + ")");
 
 var partition = d3.layout.partition()

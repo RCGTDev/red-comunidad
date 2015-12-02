@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
+  <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/d3.v3.min.js"></script>
   <script type="text/javascript" src="js/handlebars.js"></script>
+  <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
 </head>  
 <body>
   <header>
     <div class="header-gcba navbar navbar-default navbar-static-top" id="top" role="navigation">
       <div class="header-inner">
         <div class="container">
-          <a href="http://buenosaires.gob.ar" target="_blank">
-              <div class="logo"></div>
-          </a>
+          <div class="logo"></div>
           <h2 class="slogan">En todo estás vos</h2>
         </div>
       </div>
@@ -24,7 +24,7 @@
   <!-- START Templates tooltips -->
   <script id="tooltip-producto" type="text/x-handlebars-template">
     <div class='tooltip-content'>
-      <div class='tooltip-esc' onclick='cerrarTooltip(); enableFiltros();'>x</div>
+      <div class='tooltip-esc'>x</div>
       <span class='tooltip-titulo'>Áreas involucradas</span>
       <span class='tooltip-value'>
         {{#each areas}}
@@ -51,50 +51,56 @@
 
   <script id="tooltip-ministerio" type="text/x-handlebars-template">
     <div class='tooltip-content'>
-      <div class='tooltip-esc' onclick='cerrarTooltip();'>x</div>
+      <div class='tooltip-esc'>x</div>
       <span class='tooltip-titulo'>Área</span>
       <span class='tooltip-value' id='name'>{{name}}</span>
       <span class='tooltip-titulo'>Cantidad de Proyectos</span>
       <span class='tooltip-value'>{{cant_proyectos}}</span>
   </script>
   <!-- END Templates tooltips -->
-
-  <div id='contenido-inicial'>
-    <h3>Mapa de relaciones del Laboratorio de Gobierno</h3>
-    <p>Durante todo este año continuamos realizando encuentros, asesoramientos, mentoreos, hackatones y capacitaciones con diferentes áreas tanto gubernamentales como de la sociedad civil. Mediante esta visualización quisimos reflejar todo lo trabajado con los diferentes equipos para seguir fomentando la apertura y colaboración en la Ciudad.</p>
-    <button type="button" class="btn btn-default boton-viz">
-      Hacé click y conocé las áreas con las que trabajamos durante el 2015
-    </button>
-  </div>
-
-  <div id='contenido-posta'>
-    <div id="container">
-      <div id="hover-tooltip"></div>
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <div class='filtros'>
-          <h4>Filtrar por ministerio</h4>
-          <div class="form-group" id="filtro-minis">
-          </div>
+  
+  <div id="fullpage">
+    <div class='section'>
+      <div id="contenido-inicial">
+        <h2>Mapa de relaciones del Laboratorio de Gobierno</h2>
+        <p>Durante toda esta gestión hemos realizado encuentros, asesoramientos, mentoreos, hackatones y capacitaciones con diferentes áreas tanto gubernamentales como de la sociedad civil. Mediante esta visualización quisimos reflejar todo lo trabajado con los diferentes equipos para seguir fomentando la apertura y colaboración en la Ciudad.</p>
+        <span class="logo-lab-white"></span>
+        <div class="center-bottom">
+          <span class="flecha-down"></span>
         </div>
       </div>
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <div class='filtros'>
-          <h4>Filtrar por tipo de colaboración</h4>
-          <div class="form-group" id="filtro-ayuda">
-          </div>
-          <hr>
-          <h4>Filtrar por evento</h4>
-          <div class="form-group" id="filtro-evento">
+    </div>
+
+    <div class='section'>
+      <div id="container">
+        <div id="hover-tooltip"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div class='filtros'>
+            <h4>Filtrar por ministerio</h4>
+            <div class="form-group" id="filtro-minis">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="viz">
-        <span class='logo-lab' onclick='cerrarTooltip(); enableFiltros();'></span>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
-      <div class="clear"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <div class='filtros'>
+            <h4>Filtrar por tipo de colaboración</h4>
+            <div class="form-group" id="filtro-ayuda">
+            </div>
+            <hr>
+            <h4>Filtrar por evento</h4>
+            <div class="form-group" id="filtro-evento">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="viz">
+          <span class='logo-lab'></span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="tooltip"></div>
+        <div class="clear"></div>
+      </div>  
     </div>  
   </div>
+
 </body>
 <script type="text/javascript" src="js/helpers.js"></script>
 <script type="text/javascript" src="js/filtros.js"></script>

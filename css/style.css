@@ -10,11 +10,19 @@ body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   margin: auto;
   font-size: 12px;
+  height: 100%;
 }
 .clear { clear: both; }
 
 #contenido-posta { display: none; }
 #contenido-inicial, #container { padding: 0px 30px; width: 100%; margin-top: 60px; }
+
+#contenido-inicial {
+  background-image: url("img/back-viz-01");
+  color: white;
+  height: 100%;
+  margin-top: 50px;
+}
 
 #contenido-inicial h3, p { text-align: center; }
 #contenido-inicial h3 { padding-top: 30px; }

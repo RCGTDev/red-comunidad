@@ -4,7 +4,7 @@
   font-family: "Gotham";
   font-style: normal;
   font-weight: normal;
-  src: url("fonts/gotham.eot?#iefix") format("embedded-opentype"), url("fonts/gotham.woff") format("woff"), url("fonts/gotham.ttf") format("truetype"), url("fonts/gotham.svg#Gotham") format("svg"); }
+  src: url("fonts/gotham.eot?#iefix") format("embedded-opentype"), url("fonts/gotham.ttf") format("truetype"), url("fonts/gotham.svg#Gotham") format("svg"); }
 
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -77,8 +77,10 @@ header {
   font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif; }
   header .header-gcba {
     height: 50px;
-    padding: 10px 0;
-    overflow: visible; }
+    padding: 6px 0;
+    overflow: visible; 
+    background-color: #f2c51f;
+    border-color: #E5B812; }
   header .header-inner {
     padding-right: 20px;
     padding-left: 20px; }
@@ -87,12 +89,15 @@ header {
     width: 172px;
     height: 33px;
     background-image: url("img/logo-normal.png");
+    background-image: linear-gradient(transparent, transparent), url("img/bs-as-ciudad.svg");
     background-repeat: no-repeat;
-    background-size: 100%; }
+    background-size: 100%;
+    background-position-y: -5px ; }
     @media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 1.3 / 1), only screen and (min-resolution: 125dpi), only screen and (min-resolution: 1.3dppx) {
       header .header-gcba .logo {
         background-image: url("img/logo-normal_2x.png");
-        background-size: 172px 34px; } }
+        background-image: linear-gradient(transparent, transparent), url("img/bs-as-ciudad.svg");
+        background-repeat: no-repeat; } }
     @media (max-width: 767px) {
       header .header-gcba .logo {
         background-size: 80%; } }
@@ -108,28 +113,3 @@ header {
     @media (max-width: 767px) {
       header .header-gcba h2.slogan {
         font-size: 1rem; } }
-
-footer {
-  display: none;
-  position: absolute;
-  color: #FFF;
-  bottom: 0px;
-  width: 100%;
-  height: 50px;
-  background-color: #333333; }
-  footer .ministerio {
-    padding: 20px 50px; }
-    @media (max-width: 767px) {
-      footer .ministerio {
-        padding: 20px 20px; } 
-    }
-    @media (max-width: 480px) {
-      footer .ministerio {
-        padding: 20px 10px;
-      }
-    }
-  footer .labgcba {
-    text-align: center;
-    background: url("img/labgcba.png") no-repeat center center; 
-    margin-top: 4px;
-  }

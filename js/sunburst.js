@@ -87,8 +87,10 @@ d3.json("data/red-comunidad.json", function(error, root) {
                              "bajada": d.bajada,
                              "areas": areas,
                              "equipos": equipos,
-                             "evento": d.evento,
-                             "link": d.link };
+                             "evento": d.evento };
+            if (d.link != "") {
+              dataTemplate["link"] = d.link;
+            }
             // Compile template de tooltip de producto
             source = $("#tooltip-producto").html();
             

@@ -132,6 +132,41 @@ path.depth2.asyco { fill: #7c47b5; }
     min-height: 15px;
 }
 
+#redes {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  z-index: 999;
+}
+
+#redes a {
+  float: right;
+}
+#redes span {
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0px 5px;
+}
+
+span#fb { 
+  background-image: url("img/facebook-01.png"); 
+  background-image: linear-gradient(transparent, transparent), url("img/facebook-01.svg"); 
+}
+span#tw {
+  background-image: url("img/twitter-01.png"); 
+  background-image: linear-gradient(transparent, transparent), url("img/twitter-01.svg"); 
+}
+span#in {
+  background-image: url("img/instagram-01.png"); 
+  background-image: linear-gradient(transparent, transparent), url("img/instagram-01.svg"); 
+}
+span#yt {
+  background-image: url("img/youtube-01.png"); 
+  background-image: linear-gradient(transparent, transparent), url("img/youtube-01.svg"); 
+}
+
 header {
   position: absolute;
   top: 0;

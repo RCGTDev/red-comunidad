@@ -134,8 +134,14 @@ path.depth2.asyco { fill: #7c47b5; }
   cursor: pointer;
 }
 
-.checkbox label {
-    min-height: 15px;
+.form-group label {
+  min-height: 15px;
+  font-weight: normal;
+  display: block;
+}
+
+.form-group input {
+  margin-right: 5px;
 }
 
 #redes {

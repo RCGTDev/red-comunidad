@@ -17,5 +17,5 @@ $(document).ready(function() {
     });
     $(".header-gcba .logo").on("click", function() {
         $.fn.fullpage.moveSectionUp();
-    })
+    });
 });

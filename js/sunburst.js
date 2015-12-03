@@ -156,6 +156,30 @@ d3.json("data/red-comunidad.json", function(error, root) {
   $("input[name=ministerios], input[name=tipo_ayuda], input[name=evento]").change(function() {
       filtrarProductos();
   });
+
+  // Sort checkboxes de ministerios
+  var formMinis = $('#filtro-minis'),
+      els    = $('label', formMinis).get(),
+      sorted = els.sort(function(a, b) {
+            return $(a).text().toUpperCase()
+                       .localeCompare( $(b).text().toUpperCase() );
+      });
+
+  $.each(sorted, function(idx, itm) { 
+     formMinis.append(itm); 
+  });
+
+  // Sort checkboxes de tipo de ayuda
+  var formAyuda = $('#filtro-ayuda'),
+      els    = $('label', formAyuda).get(),
+      sorted = els.sort(function(a, b) {
+            return $(a).text().toUpperCase()
+                       .localeCompare( $(b).text().toUpperCase() );
+      });
+
+  $.each(sorted, function(idx, itm) { 
+     formAyuda.append(itm); 
+  });
 });
 
 // Interpolate the arcs in data space.

@@ -14,10 +14,10 @@ function generarFiltros() {
     for (var i=0; i<ministerios.length; i++) {
         var minisClass = d3.select(ministerios[i]).attr("class").split(" ")[1];
         var minisName = d3.select(ministerios[i])[0][0].__data__.name;
-        var checkbox = "<div class='checkbox'><label><input type='checkbox' value='" + 
+        var checkbox = "<label><input type='checkbox' value='" + 
                        minisClass + 
                        "' name='ministerios'>" + 
-                       minisName + "</label></div>";
+                       minisName + "</label>";
         filtroMinisHtml += checkbox;
     }
     filtroMinis.html(filtroMinisHtml);
@@ -34,10 +34,10 @@ function generarFiltros() {
         }
         if (!inArray) {
             tiposAyuda[ayudaClass] = ayudaName;
-            var checkbox = "<div class='checkbox'><label><input type='checkbox' value='" + 
+            var checkbox = "<label><input type='checkbox' value='" + 
                            ayudaClass + 
                            "' name='tipo_ayuda'>" + 
-                           ayudaName + "</label></div>";
+                           ayudaName + "</label>";
             filtroAyudaHtml += checkbox;
         }
     }
@@ -51,10 +51,10 @@ function generarFiltros() {
         if (eventoName != "") {
             if (eventos.indexOf(eventoName) == -1) {
                 eventos.push(eventoName);
-                var checkbox = "<div class='checkbox'><label><input type='checkbox' value='" + 
+                var checkbox = "<label><input type='checkbox' value='" + 
                                generarInitials(eventoName) + 
                                "' name='evento'>" + 
-                               eventoName + "</label></div>";
+                               eventoName + "</label>";
                 filtroEventoHtml += checkbox;
             }    
         }
@@ -141,5 +141,4 @@ function filtrarProductos() {
             }
         });
     });
-
 }

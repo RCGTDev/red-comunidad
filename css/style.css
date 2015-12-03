@@ -15,19 +15,25 @@ body {
 .clear { clear: both; }
 
 #fullpage { display: none; }
-#contenido-inicial {
-  margin-top: 60px;
+
+.fp-tableCell {
+  /* Header */
+  padding-top: 40px;
 }
 
 .section #container {
-  padding: 30px 20px;
+  padding: 20px 20px;
 }
 
 #contenido-inicial {
   background-image: url("img/back-viz-01.png");
-  background-position-y: -180px;
+  background-repeat: no-repeat;
   color: white;
   height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #contenido-inicial h2, p { text-align: center; }
@@ -185,6 +191,9 @@ header {
   header .header-inner {
     padding-right: 20px;
     padding-left: 20px; }
+    header .header-inner .container {
+      width: 100%;
+      padding-left: 0px; }
   header .header-gcba .logo {
     float: left;
     width: 172px;
